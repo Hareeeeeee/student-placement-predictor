@@ -1,26 +1,37 @@
+from collections import Counter
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.routes.prediction import router
 from app.database import supabase
+from app.routes.prediction import router
 
 app = FastAPI()
 
+# -----------------------------
+# CORS
+# -----------------------------
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",
     ],
+    allow_origin_regex=r"https://.*\.vercel\.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+# -----------------------------
+# Routes
+# -----------------------------
 app.include_router(router)
+
 
 @app.get("/")
 def root():
     return {"message": "API Running"}
+
 
 @app.get("/dashboard")
 async def dashboard():
@@ -57,11 +68,10 @@ async def dashboard():
         "average_confidence": round(avg_confidence * 100, 2),
     }
 
-from app.database import supabase
-
 
 @app.get("/recent-predictions")
 async def recent_predictions():
+
     response = (
         supabase
         .table("predictions")
@@ -73,7 +83,6 @@ async def recent_predictions():
 
     return response.data
 
-from collections import Counter
 
 @app.get("/placement-distribution")
 async def placement_distribution():
@@ -90,15 +99,14 @@ async def placement_distribution():
     return [
         {
             "name": "Placed",
-            "value": counter.get("Placed", 0)
+            "value": counter.get("Placed", 0),
         },
         {
             "name": "Not Placed",
-            "value": counter.get("Not Placed", 0)
-        }
+            "value": counter.get("Not Placed", 0),
+        },
     ]
 
-from collections import Counter
 
 @app.get("/branch-distribution")
 async def branch_distribution():
@@ -110,19 +118,21 @@ async def branch_distribution():
         .execute()
     )
 
-    branches = [row["branch"].strip() for row in response.data]
+    branches = [
+        row["branch"].strip()
+        for row in response.data
+    ]
 
     counter = Counter(branches)
 
     return [
         {
             "branch": branch,
-            "count": count
+            "count": count,
         }
         for branch, count in counter.items()
     ]
 
-from collections import Counter
 
 @app.get("/prediction-trend")
 async def prediction_trend():
@@ -144,10 +154,11 @@ async def prediction_trend():
     return [
         {
             "date": date,
-            "count": count
+            "count": count,
         }
         for date, count in sorted(counter.items())
     ]
+
 
 @app.get("/history")
 async def prediction_history():
@@ -160,13 +171,8 @@ async def prediction_history():
         .execute()
     )
 
-    print(response.data)
-
     return response.data
 
-
-
-from fastapi import HTTPException
 
 @app.delete("/prediction/{prediction_id}")
 async def delete_prediction(prediction_id: int):
@@ -179,16 +185,21 @@ async def delete_prediction(prediction_id: int):
         .execute()
     )
 
-    print("Count:", response.count)
-    print("Data:", response.data)
-
     return {
         "count": response.count,
         "data": response.data,
     }
 
+
 @app.get("/test")
 async def test():
-    response = supabase.table("predictions").select("id").limit(5).execute()
-    print(response.data)
+
+    response = (
+        supabase
+        .table("predictions")
+        .select("id")
+        .limit(5)
+        .execute()
+    )
+
     return response.data
