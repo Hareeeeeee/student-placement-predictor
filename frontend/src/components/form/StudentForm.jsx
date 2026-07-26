@@ -68,204 +68,215 @@ export default function StudentForm() {
   };
 
   return (
-<>
-<form
-onSubmit={handleSubmit}
-className="space-y-8 mt-10"
->
+    <>
+      <form
+        onSubmit={handleSubmit}
+        className="space-y-8 mt-10"
+      >
+        <Card
+          title="Personal Information"
+          icon={<FaUser />}
+        >
+          <div className="grid md:grid-cols-2 gap-6">
 
-<Card
-title="Personal Information"
-icon={<FaUser />}
->
+            <InputField
+              label="Age"
+              name="age"
+              type="number"
+              value={formData.age}
+              onChange={handleChange}
+              placeholder="Enter Age"
+            />
 
-<div className="grid md:grid-cols-2 gap-6">
+            <SelectField
+              label="Gender"
+              name="gender"
+              value={formData.gender}
+              onChange={handleChange}
+            >
+              <option value="">Select Gender</option>
 
-<InputField
-label="Age"
-name="age"
-type="number"
-value={formData.age}
-onChange={handleChange}
-placeholder="Enter Age"
-/>
+              <option value="Male">
+                Male
+              </option>
 
-<SelectField
-label="Gender"
-name="gender"
-value={formData.gender}
-onChange={handleChange}
->
+              <option value="Female">
+                Female
+              </option>
+            </SelectField>
 
-<option value="">Select Gender</option>
+            <SelectField
+              label="Degree"
+              name="degree"
+              value={formData.degree}
+              onChange={handleChange}
+            >
+              <option value="">
+                Select Degree
+              </option>
 
-<option value="Male">
-Male
-</option>
+              <option value="B.Tech">
+                B.Tech
+              </option>
 
-<option value="Female">
-Female
-</option>
+              <option value="B.Sc">
+                B.Sc
+              </option>
 
-</SelectField>
+              <option value="BCA">
+                BCA
+              </option>
 
-<SelectField
-label="Degree"
-name="degree"
-value={formData.degree}
-onChange={handleChange}
->
+              <option value="MCA">
+                MCA
+              </option>
+            </SelectField>
 
-<option value="">
-Select Degree
-</option>
+            <SelectField
+              label="Branch"
+              name="branch"
+              value={formData.branch}
+              onChange={handleChange}
+            >
+              <option value="">
+                Select Branch
+              </option>
 
-<option value="B.Tech">
-B.Tech
-</option>
+              <option value="CSE">
+                CSE
+              </option>
 
-<option value="B.Sc">
-B.Sc
-</option>
+              <option value="IT">
+                IT
+              </option>
 
-<option value="BCA">
-BCA
-</option>
+              <option value="ECE">
+                ECE
+              </option>
 
-</SelectField>
+              <option value="ME">
+                ME
+              </option>
 
-<InputField
-label="Branch"
-name="branch"
-value={formData.branch}
-onChange={handleChange}
-placeholder="Computer Science"
-/>
+              <option value="Civil">
+                Civil
+              </option>
+            </SelectField>
 
-</div>
+          </div>
+        </Card>
 
-</Card>
+        <Card
+          title="Academic Details"
+          icon={<FaGraduationCap />}
+        >
+          <div className="grid md:grid-cols-2 gap-6">
 
-<Card
-title="Academic Details"
-icon={<FaGraduationCap />}
->
+            <InputField
+              label="CGPA"
+              name="cgpa"
+              type="number"
+              value={formData.cgpa}
+              onChange={handleChange}
+              placeholder="8.5"
+            />
 
-<div className="grid md:grid-cols-2 gap-6">
+            <InputField
+              label="Backlogs"
+              name="backlogs"
+              type="number"
+              value={formData.backlogs}
+              onChange={handleChange}
+              placeholder="0"
+            />
 
-<InputField
-label="CGPA"
-name="cgpa"
-type="number"
-value={formData.cgpa}
-onChange={handleChange}
-placeholder="8.5"
-/>
+            <InputField
+              label="Certifications"
+              name="certifications"
+              type="number"
+              value={formData.certifications}
+              onChange={handleChange}
+              placeholder="3"
+            />
 
-<InputField
-label="Backlogs"
-name="backlogs"
-type="number"
-value={formData.backlogs}
-onChange={handleChange}
-placeholder="0"
-/>
+            <InputField
+              label="Aptitude Test Score"
+              name="aptitude_test_score"
+              type="number"
+              value={formData.aptitude_test_score}
+              onChange={handleChange}
+              placeholder="85"
+            />
 
-<InputField
-label="Certifications"
-name="certifications"
-type="number"
-value={formData.certifications}
-onChange={handleChange}
-placeholder="3"
-/>
+          </div>
+        </Card>
 
-<InputField
-label="Aptitude Test Score"
-name="aptitude_test_score"
-type="number"
-value={formData.aptitude_test_score}
-onChange={handleChange}
-placeholder="85"
-/>
+        <Card
+          title="Experience"
+          icon={<FaBriefcase />}
+        >
+          <div className="grid md:grid-cols-2 gap-6">
 
-</div>
+            <InputField
+              label="Projects"
+              name="projects"
+              type="number"
+              value={formData.projects}
+              onChange={handleChange}
+              placeholder="4"
+            />
 
-</Card>
+            <InputField
+              label="Internships"
+              name="internships"
+              type="number"
+              value={formData.internships}
+              onChange={handleChange}
+              placeholder="2"
+            />
 
-<Card
-title="Experience"
-icon={<FaBriefcase />}
->
+          </div>
+        </Card>
 
-<div className="grid md:grid-cols-2 gap-6">
+        <Card
+          title="Skills"
+          icon={<FaBrain />}
+        >
+          <div className="space-y-8">
 
-<InputField
-label="Projects"
-name="projects"
-type="number"
-value={formData.projects}
-onChange={handleChange}
-placeholder="4"
-/>
+            <SliderField
+              label="Coding Skills"
+              name="coding_skills"
+              value={formData.coding_skills}
+              onChange={handleChange}
+            />
 
-<InputField
-label="Internships"
-name="internships"
-type="number"
-value={formData.internships}
-onChange={handleChange}
-placeholder="2"
-/>
+            <SliderField
+              label="Communication Skills"
+              name="communication_skills"
+              value={formData.communication_skills}
+              onChange={handleChange}
+            />
 
-</div>
+            <SliderField
+              label="Soft Skills"
+              name="soft_skills_rating"
+              value={formData.soft_skills_rating}
+              onChange={handleChange}
+            />
 
-</Card>
+          </div>
+        </Card>
 
-<Card
-title="Skills"
-icon={<FaBrain />}
->
-
-<div className="space-y-8">
-
-<SliderField
-label="Coding Skills"
-name="coding_skills"
-value={formData.coding_skills}
-onChange={handleChange}
-/>
-
-<SliderField
-label="Communication Skills"
-name="communication_skills"
-value={formData.communication_skills}
-onChange={handleChange}
-/>
-
-<SliderField
-label="Soft Skills"
-name="soft_skills_rating"
-value={formData.soft_skills_rating}
-onChange={handleChange}
-/>
-
-</div>
-
-</Card>
-
-<Button
-type="submit"
-disabled={loading}
->
-
-{loading
-? "Predicting..."
-: "✨ Predict Placement"}
-
-</Button>
-
-</form>
+        <Button
+          type="submit"
+          disabled={loading}
+        >
+          {loading
+            ? "Predicting..."
+            : "✨ Predict Placement"}
+        </Button>
+      </form>
 
       <PredictionCard result={result} />
     </>
